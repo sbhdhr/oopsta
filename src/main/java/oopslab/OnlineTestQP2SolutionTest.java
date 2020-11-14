@@ -40,61 +40,59 @@ public class OnlineTestQP2SolutionTest {
 	 */
 	@Test
 	@Order(1)
-	public void testSetName()
-	{
+	public void testSetName() {
 		System.out.println("\nTest 1:");
 		System.out.println("-------------------------------------");
-		
+
 		String message1 = "First or Last Name must contain characters only";
 		String message2 = "First or Last Name should start with a capital letter";
-		
+
 		System.out.println("Case1: ");
 		System.out.println("-----------------");
-        try {
-			Student s = new Student("ja1","Kumar",1);
+		try {
+			Student s = new Student("ja1", "Kumar", 1);
 			fail("Case1");
 		} catch (ValidationException e) {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
-			assertEquals(message1,out);
+			assertEquals(message1, out);
 		}
-        
-        System.out.println("Case2: ");
+
+		System.out.println("Case2: ");
 		System.out.println("-----------------");
-        try {
-			Student s = new Student("Jay","Ku34r",1);
+		try {
+			Student s = new Student("Jay", "Ku34r", 1);
 			fail("Case2");
 		} catch (ValidationException e) {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
-			assertEquals(message1,out);
+			assertEquals(message1, out);
 		}
-        
-        System.out.println("Case3: ");
+
+		System.out.println("Case3: ");
 		System.out.println("-----------------");
-        try {
-			Student s = new Student("jay","Kumar",1);
-			fail("Case2");
+		try {
+			Student s = new Student("jay", "Kumar", 1);
+			fail("Case3");
 		} catch (ValidationException e) {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
-			assertEquals(message2,out);
+			assertEquals(message2, out);
 		}
-        
-        System.out.println("Case4: ");
+
+		System.out.println("Case4: ");
 		System.out.println("-----------------");
-        try {
-			Student s = new Student("Jay","kumar",1);
-			fail("Case2");
+		try {
+			Student s = new Student("Jay", "kumar", 1);
+			fail("Case4");
 		} catch (ValidationException e) {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
-			assertEquals(message2,out);
+			assertEquals(message2, out);
 		}
-        
+
 	}
-	
-	
+
 	/*
 	 * Question 2. [BINARY MARKING: 0.5 MARKS]
 	 * 
@@ -103,37 +101,69 @@ public class OnlineTestQP2SolutionTest {
 	 */
 	@Test
 	@Order(2)
-	public void testSetCGPA()
-	{
+	public void testSetCGPA() {
 		System.out.println("\n\nTest 2:");
 		System.out.println("-------------------------------------");
-		
+
 		String message = "CGPA not in range";
-		
+
 		System.out.println("Higher: ");
 		System.out.println("-----------------");
-        try {
-			Student s = new Student("Jay","Kumar",12);
+		try {
+			Student s = new Student("Jay", "Kumar", 12);
 			fail("Exception not thrown for value higher than 10");
 		} catch (ValidationException e) {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
-			assertEquals(message,out);
+			assertEquals(message, out);
 		}
-        
-        System.out.println("\nLower: ");
+
+		System.out.println("\nLower: ");
 		System.out.println("-----------------");
-        try {
-			Student s = new Student("Jay","Kumar",-1);
+		try {
+			Student s = new Student("Jay", "Kumar", -1);
 			fail("Exception not thrown for value lesser than 0");
 		} catch (ValidationException e) {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
-			assertEquals(message,out);
-		}   
+			assertEquals(message, out);
+		}
 	}
-	
-	
+
+	/*
+	 * Question 4. [BINARY MARKING: 02 MARKS]
+	 * 
+	 *
+	 * 
+	 * 
+	 */
+	@Test
+	@Order(4)
+	public void testStudentConstructor() {
+		System.out.println("\n\nTest 4:");
+		System.out.println("-------------------------------------");
+
+		System.out.println("Case1: ");
+		System.out.println("-----------------");
+		// change according to student class of file
+		try {
+			Student s = new Student("jay", "Kumar123", 4);
+			fail("Case1");
+		} catch (ValidationException e) {
+			System.out.println("Pass");
+		}
+
+		System.out.println("Case2: ");
+		System.out.println("-----------------");
+		// change according to student class of file
+		try {
+			Student s = new Student("Jay", "Kumar", -1);
+			fail("Case2");
+		} catch (ValidationException e) {
+			System.out.println("Pass");
+		}
+	}
+
 	/*
 	 * Question 5. [BINARY MARKING: 5 MARKS]
 	 * 
@@ -297,7 +327,7 @@ public class OnlineTestQP2SolutionTest {
 	public void testMain() {
 		System.out.println("\n\nTest 8:");
 		System.out.println("-------------------------------------");
-		
+
 		String[] depts = new String[] { "CSE", "EEE", "Mech" };
 
 		for (String s : depts) {
@@ -306,7 +336,7 @@ public class OnlineTestQP2SolutionTest {
 			System.out.println("---------------------------------");
 			InputStream inStream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
 			System.setIn(inStream);
-			//change here
+			// change here
 			StudentSol.main(null);
 			System.setIn(originalIn);
 		}
