@@ -56,6 +56,7 @@ public class OnlineTestQP2SolutionTest {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
 			assertEquals(message1, out);
+			System.out.println("Pass");
 		}
 
 		System.out.println("Case2: ");
@@ -67,6 +68,7 @@ public class OnlineTestQP2SolutionTest {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
 			assertEquals(message1, out);
+			System.out.println("Pass");
 		}
 
 		System.out.println("Case3: ");
@@ -78,6 +80,7 @@ public class OnlineTestQP2SolutionTest {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
 			assertEquals(message2, out);
+			System.out.println("Pass");
 		}
 
 		System.out.println("Case4: ");
@@ -89,6 +92,7 @@ public class OnlineTestQP2SolutionTest {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
 			assertEquals(message2, out);
+			System.out.println("Pass");
 		}
 
 	}
@@ -116,6 +120,7 @@ public class OnlineTestQP2SolutionTest {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
 			assertEquals(message, out);
+			System.out.println("Pass");
 		}
 
 		System.out.println("\nLower: ");
@@ -127,6 +132,7 @@ public class OnlineTestQP2SolutionTest {
 			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
 			System.out.println(out);
 			assertEquals(message, out);
+			System.out.println("Pass");
 		}
 	}
 
