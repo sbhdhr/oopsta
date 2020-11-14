@@ -41,7 +41,8 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(1)
 	public void testSetName() {
-		System.out.println("\nTest 1:");
+		System.out.println("-------------------------------------");
+		System.out.println("Test 1:");
 		System.out.println("-------------------------------------");
 
 		String message1 = "First or Last Name must contain characters only";
@@ -106,7 +107,8 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(2)
 	public void testSetCGPA() {
-		System.out.println("\n\nTest 2:");
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 2:");
 		System.out.println("-------------------------------------");
 
 		String message = "CGPA not in range";
@@ -135,7 +137,22 @@ public class OnlineTestQP2SolutionTest {
 			System.out.println("Pass");
 		}
 	}
+	
+	/*
+	 * Question 3. hashcode (manual) [BINARY MARKING: 0.5 MARKS]
 
+	 * 
+	 */
+	@Test
+	@Order(3)
+	public void testHashCode() {
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 3:");
+		System.out.println("-------------------------------------");
+		System.out.println("Please check manually.");
+	}
+	
+	
 	/*
 	 * Question 4. [BINARY MARKING: 02 MARKS]
 	 * 
@@ -146,7 +163,8 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(4)
 	public void testStudentConstructor() {
-		System.out.println("\n\nTest 4:");
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 4:");
 		System.out.println("-------------------------------------");
 
 		System.out.println("Case1: ");
@@ -198,7 +216,8 @@ public class OnlineTestQP2SolutionTest {
 		System.setOut(originalOut);
 		System.setErr(originalErr);
 
-		System.out.println("\n\nTest 5:");
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 5:");
 		System.out.println("-------------------------------------");
 		System.out.println("Expected Output: ");
 		System.out.println("-----------------");
@@ -249,7 +268,8 @@ public class OnlineTestQP2SolutionTest {
 
 		String[] depts = new String[] { "CSE", "EEE", "Mech" };
 
-		System.out.println("\n\nTest 6:");
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 6:");
 		System.out.println("-------------------------------------");
 
 		for (String s : depts) {
@@ -293,7 +313,8 @@ public class OnlineTestQP2SolutionTest {
 
 		String[] depts = new String[] { "CSE", "EEE", "Mech" };
 
-		System.out.println("\n\nTest 7:");
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 7:");
 		System.out.println("-------------------------------------");
 
 		System.setOut(new PrintStream(outContent));
@@ -331,7 +352,8 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(8)
 	public void testMain() {
-		System.out.println("\n\nTest 8:");
+		System.out.println("\n\n\n-------------------------------------");
+		System.out.println("Test 8:");
 		System.out.println("-------------------------------------");
 
 		String[] depts = new String[] { "CSE", "EEE", "Mech" };
