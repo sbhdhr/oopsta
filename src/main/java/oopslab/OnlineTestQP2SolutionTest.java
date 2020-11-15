@@ -26,7 +26,6 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import oopslab.Student.ValidationException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(Lifecycle.PER_CLASS)
@@ -34,11 +33,10 @@ public class OnlineTestQP2SolutionTest {
 
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-	private final PrintStream originalOut = System.out;
 	private final PrintStream originalErr = System.err;
 	private final InputStream originalIn = System.in;
 
-	private String studID = "2019H1030023P";
+	private String studID = "QP2_2019A7PS0051P";
 	private PrintStream fileOut;
 
 	@BeforeAll
