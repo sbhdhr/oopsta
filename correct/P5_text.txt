@@ -1,0 +1,2 @@
+Validation fails for Record no 1: First or Last Name should start with a capital letter; CGPA not in range; 
+Validation fails for Record no 4: First or Last Name should start with a capital letter; 

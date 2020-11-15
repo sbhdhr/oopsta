@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +29,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import oopslab.Student.ValidationException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(Lifecycle.PER_CLASS)
@@ -36,7 +40,7 @@ public class OnlineTestQP2SolutionTest {
 	private final PrintStream originalErr = System.err;
 	private final InputStream originalIn = System.in;
 
-	private String studID = "QP2_2019A7PS0051P";
+	private String studID = "QP2_2019A7PS0052P";
 	private PrintStream fileOut;
 
 	@BeforeAll
@@ -67,10 +71,11 @@ public class OnlineTestQP2SolutionTest {
 		System.out.println("-------------------------------------");
 		System.out.println("OOPS LAB Q2 Eval Report : " + studID);
 		System.out.println("-------------------------------------");
-		System.out.println("NOTE. Please change the main classname to one mentioned in student's file.");
-		System.out
-				.println("NOTE. Please change the Student and Aggregate classes according to student submitted file.");
-		System.out.println("NOTE. Please change the id name for the student whose submission is being evaluated.");
+		System.out.println("NOTE. Please change the main classname to one mentioned in Student's file.");
+		System.out.println(
+				"NOTE. Please change the StudentClass and AggregateClasses according to that of submitted file.");
+		System.out.println("NOTE. Please change the id name for the submission being evaluated.");
+		System.out.println("NOTE. Import proper ValidExceptionClass.");
 
 		System.out.println("\n\n-------------------------------------");
 		System.out.println("Test 1:");
@@ -241,7 +246,7 @@ public class OnlineTestQP2SolutionTest {
 
 		System.out.println("Case1: Invalid");
 		System.out.println("-----------------");
-		// change according to student class of file
+		// change according to Student class of file
 		try {
 			Student s = new Student("jay", "Kumar123", 4);
 			fail("Case1");
@@ -252,7 +257,7 @@ public class OnlineTestQP2SolutionTest {
 
 		System.out.println("Case2: Valid");
 		System.out.println("-----------------");
-		// change according to student class of file
+		// change according to Student class of file
 		try {
 			Student s = new Student("Jay", "Kumar", 5);
 			System.out.println("Pass");
@@ -275,51 +280,75 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(5)
 	public void testPopulateMap() {
-
-		System.setOut(new PrintStream(outContent));
-		System.setErr(new PrintStream(errContent));
-
-		Map<String, Student> hmMaster = MasterQP2Solution.populateMap();
-		String outMaster = outContent.toString();
-
-		outContent.reset();
-
-		// Change here
-		Map<String, Student> hm = StudentSol.populateMap();
-
-		String out = outContent.toString();
-
-		System.setOut(fileOut);
-		System.setErr(originalErr);
-
 		System.out.println("\n\n\n-------------------------------------");
 		System.out.println("Test 5:");
 		System.out.println("-------------------------------------");
 		System.out.println("NOTE. Manual check: NOT ALLOWED TO USE THE STRING TOKENIZER.");
 		System.out.println("NOTE. Manual check: Use lambda expression to print the array list of exceptions.");
 		System.out.println("NOTE. Check assert failures.");
-		System.out.println("Expected Output: ");
-		System.out.println("-----------------");
-		System.out.println(outMaster);
-		System.out.println("Actual Output: ");
-		System.out.println("---------------");
-		System.out.println(out);
 
-		assertNotNull(hm);
-		assertEquals(hmMaster.size(), hm.size());
-		assertEquals(outMaster, out);
+		Map<String, Student> hmMaster = SaveMasterOutputs.readCorrectMap();
+		String outMaster = "";
+		try {
+			outMaster = new String(Files.readAllBytes(Paths.get("correct\\P5_text.txt")));
 
-		// this also checks validity of key
-		for (String key : hmMaster.keySet()) {
-			Student s1 = hmMaster.get(key);
-			Student s2 = hm.getOrDefault(key, null);
-			assertNotNull(s2);
-			// dont check id coz its randomly generated
-			// assertEquals(s1.idNo,s2.idNo);
-			assertEquals(s1.fName, s2.fName);
-			assertEquals(s1.lName, s2.lName);
-			assertEquals(s1.cgpa, s2.cgpa, 0.0000000001);
+			System.setOut(new PrintStream(outContent));
+			System.setErr(new PrintStream(errContent));
+			// Change here
+			Map<String, Student> hm = QP2_2019A7PS0052P.populateMap();
+
+			String out = outContent.toString();
+
+			System.setOut(fileOut);
+			System.setErr(originalErr);
+
+			System.out.println("Expected Output: ");
+			System.out.println("-----------------");
+			System.out.println(outMaster);
+			System.out.println("Actual Output: ");
+			System.out.println("---------------");
+			System.out.println(out);
+
+			assertNotNull(hm);
+			assertEquals(hmMaster.size(), hm.size());
+			assertEquals(outMaster, out);
+
+			// this also checks validity of key
+			for (String key : hmMaster.keySet()) {
+				Student s1 = hmMaster.get(key);
+				Student s2 = hm.getOrDefault(key, null);
+				assertNotNull(s2);
+				// dont check id coz its randomly generated
+				// assertEquals(s1.idNo,s2.idNo);
+				assertEquals(s1.fName, s2.fName);
+				assertEquals(s1.lName, s2.lName);
+				assertEquals(s1.cgpa, s2.cgpa, 0.0000000001);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (AssertionError e) {
+			System.out.println("Failed:  " + e.getMessage());
+
+			throw e;
 		}
+	}
+
+	List<Student> sortByDept(Map<String, Student> hm, String search_dept) {
+		List<Student> list = new ArrayList<Student>();
+
+		for (Map.Entry<String, Student> e : hm.entrySet())
+			if (e.getKey().contains(search_dept))
+				list.add(e.getValue());
+
+		Comparator<Student> custom = (Student o1, Student o2) -> {
+			int i = Double.compare(o2.cgpa, o1.cgpa);
+			if (i != 0)
+				return i;
+			return (o1.fName + " " + o1.lName).compareTo(o2.fName + " " + o2.lName);
+		};
+
+		Collections.sort(list, custom);
+		return list;
 	}
 
 	/*
@@ -334,16 +363,7 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(6)
 	public void testSortByDept() {
-
-		
-
-		System.setOut(new PrintStream(outContent));
-		System.setErr(new PrintStream(errContent));
-
-		Map<String, Student> hmMaster = MasterQP2Solution.populateMap();
-
-		System.setOut(fileOut);
-		System.setErr(originalErr);
+		Map<String, Student> hmMaster = SaveMasterOutputs.readCorrectMap();
 
 		String[] depts = new String[] { "CSE", "EEE", "Mech" };
 
@@ -353,33 +373,39 @@ public class OnlineTestQP2SolutionTest {
 		System.out.println("NOTE. Manual check: lambda expression for the Comparator interface.");
 		System.out.println("NOTE. Manual check: Use lambda expression to print the array list of exceptions.");
 
-		for (String s : depts) {
-			List<Student> sortedListMaster = MasterQP2Solution.sortByDept(hmMaster, s);
+		try {
+			for (String s : depts) {
+				List<Student> sortedListMaster = sortByDept(hmMaster, s);
 
-			// Change here
-			List<Student> sortedList = StudentSol.sortByDept(hmMaster, s);
-			// pass master map as input
+				// Change here
+				List<Student> sortedList = QP2_2019A7PS0052P.sortByDept(hmMaster, s);
+				// pass master map as input
 
-			System.out.println("Dept: " + s);
-			System.out.println("---------------------------------");
-			System.out.println("Expected: ");
-			System.out.println(Arrays.toString(sortedListMaster.toArray()));
-			System.out.println("Actual: ");
-			System.out.println(Arrays.toString(sortedList.toArray()));
+				System.out.println("Dept: " + s);
+				System.out.println("---------------------------------");
+				System.out.println("Expected: ");
+				System.out.println(Arrays.toString(sortedListMaster.toArray()));
+				System.out.println("Actual: ");
+				System.out.println(Arrays.toString(sortedList.toArray()));
 
-			assertNotNull(sortedList);
-			assertEquals(sortedListMaster.size(), sortedList.size());
+				assertNotNull(sortedList);
+				assertEquals(sortedListMaster.size(), sortedList.size());
 
-			for (int i = 0; i < sortedListMaster.size(); i++) {
-				Student s1 = sortedListMaster.get(i);
-				Student s2 = sortedList.get(i);
-				// dont check id coz its randomly generated
-				// assertEquals(s1.idNo,s2.idNo);
-				assertEquals(s1.fName, s2.fName);
-				assertEquals(s1.lName, s2.lName);
-				assertEquals(s1.cgpa, s2.cgpa, 0.0000000001);
+				for (int i = 0; i < sortedListMaster.size(); i++) {
+					Student s1 = sortedListMaster.get(i);
+					Student s2 = sortedList.get(i);
+					// dont check id coz its randomly generated
+					// assertEquals(s1.idNo,s2.idNo);
+					assertEquals(s1.fName, s2.fName);
+					assertEquals(s1.lName, s2.lName);
+					assertEquals(s1.cgpa, s2.cgpa, 0.0000000001);
+				}
+				System.out.println("");
 			}
-			System.out.println("");
+		} catch (AssertionError e) {
+			System.out.println("Failed:  " + e.getMessage());
+
+			throw e;
 		}
 	}
 
@@ -399,38 +425,37 @@ public class OnlineTestQP2SolutionTest {
 		System.out.println("Test 7:");
 		System.out.println("-------------------------------------");
 		System.out.println("NOTE. Manual check: Use lambda expression to print the array list of exceptions.");
-		System.out.println("NOTE. Change output file according to the student submitted file.");
+		System.out.println("NOTE. Change output file according to the Student submitted file.");
 		System.out.println("NOTE. Make sure MasterOutput*.txt files are present in classpath. Pull code from github.");
 
-		System.setOut(new PrintStream(outContent));
-		System.setErr(new PrintStream(errContent));
-		// Change here
-		Map<String, Student> hmMaster = MasterQP2Solution.populateMap();
-		System.setOut(fileOut);
-		System.setErr(originalErr);
+		Map<String, Student> hmMaster = SaveMasterOutputs.readCorrectMap();
+		try {
+			for (String s : depts) {
+				try {
+					System.out.println("Dept: " + s);
+					System.out.println("---------------------------------");
 
-		for (String s : depts) {
-			try {
-				System.out.println("Dept: " + s);
-				System.out.println("---------------------------------");
+					String outMaster = new String(Files.readAllBytes(Paths.get("MasterOutput" + s + ".txt")));
 
-				String outMaster = new String(Files.readAllBytes(Paths.get("MasterOutput" + s + ".txt")));
+					System.out.println("Expected: ");
+					System.out.println(outMaster);
 
-				System.out.println("Expected: ");
-				System.out.println(outMaster);
+					List<Student> sortedList = sortByDept(hmMaster, s);
+					//// Change here
+					QP2_2019A7PS0052P.writeRecords(sortedList);
+					String out = new String(Files.readAllBytes(Paths.get("QP2_2019A7PS0052P.txt")));
 
-				List<Student> sortedList = MasterQP2Solution.sortByDept(hmMaster, s);
-				//// Change here
-				StudentSol.writeRecords(sortedList);
-				String out = new String(Files.readAllBytes(Paths.get("output.txt")));
-
-				System.out.println("Actual: ");
-				System.out.println(out);
-				// assertEquals(outMaster, out);
-				System.out.println("");
-			} catch (Exception e) {
-				e.printStackTrace();
+					System.out.println("Actual: ");
+					System.out.println(out);
+					assertEquals(outMaster, out);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+		} catch (AssertionError e) {
+			System.out.println("Failed:  " + e.getMessage());
+
+			throw e;
 		}
 	}
 
@@ -438,26 +463,32 @@ public class OnlineTestQP2SolutionTest {
 	@Order(8)
 	public void testMain() {
 
-		System.out.println("\n\n\n-------------------------------------");
-		System.out.println("Test 8:");
-		System.out.println("-------------------------------------");
-		System.out.println("NOTE. Manual check: Print the elements of the sorted list using a lambda expression.");
+		try {
 
-		String[] depts = new String[] { "CSE", "EEE", "Mech" };
+			System.out.println("\n\n\n-------------------------------------");
+			System.out.println("Test 8:");
+			System.out.println("-------------------------------------");
+			System.out.println("NOTE. Manual check: Print the elements of the sorted list using a lambda expression.");
 
-		for (String s : depts) {
+			String[] depts = new String[] { "CSE", "EEE", "Mech" };
 
-			System.out.println("\nDept: " + s);
-			System.out.println("---------------------------------");
-			InputStream inStream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
-			System.setIn(inStream);
-			// change here
-			StudentSol.main(null);
-			System.setIn(originalIn);
+			for (String s : depts) {
+
+				System.out.println("\nDept: " + s);
+				System.out.println("---------------------------------");
+				InputStream inStream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+				System.setIn(inStream);
+				// change here
+				QP2_2019A7PS0052P.main(null);
+				System.setIn(originalIn);
+			}
+
+			if (fileOut != null)
+				fileOut.close();
+		} catch (Exception e) {
+			System.out.println("Failed: " + e.getMessage());
+			throw e;
 		}
-
-		if (fileOut != null)
-			fileOut.close();
 	}
 
 }

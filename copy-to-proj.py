@@ -26,11 +26,11 @@ for filename in java_files:
     with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
         for line in file:
             #line = line.replace('class Student', 'class Student'+str(i))
-            line = line.replace('Student', 'Student'+str(i))
-            line = line.replace('Aggregate', 'Aggregate'+str(i))
-            line = line.replace('Student(String fName', 'Student'+str(i)+'(String fName')
-            #line = line.replace('interface Aggregate', 'interface Aggregate'+str(i))
-            line = line.replace('QP2_Student'+str(i)+'_ID_number.txt', 'QP2_Student_ID_number.txt')
+            # line = line.replace('Student', 'Student'+str(i))
+            # line = line.replace('Aggregate', 'Aggregate'+str(i))
+            # line = line.replace('Student(String fName', 'Student'+str(i)+'(String fName')
+            # #line = line.replace('interface Aggregate', 'interface Aggregate'+str(i))
+            # line = line.replace('QP2_Student'+str(i)+'_ID_number.txt', 'QP2_Student_ID_number.txt')
             line = line.replace('public class OnlineTestQP2', 'public class '+
                                 os.path.basename(filename).replace('.java', ''))
             print(line.replace('package ', 'package oopslab;\n'), end='')

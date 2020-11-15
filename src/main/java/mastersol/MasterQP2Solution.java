@@ -1,4 +1,4 @@
-package oopslab;
+package mastersol;
 
 /* PROVIDE THE FOLLOWING DETAILS:
  * 
@@ -29,13 +29,13 @@ import java.util.Scanner;
  * DO NOT MODIFY THE INTERFACE
  ****************************************************************************************************************************************/
 
-interface Aggregate0<T> {
+interface Aggregate<T> {
 	void add(T e);
 
 	Collection<T> get();
 }
 
-class Student0 {
+class Student {
 	int idNo;
 	String fName;
 	String lName;
@@ -44,7 +44,7 @@ class Student0 {
 	/****************************************************************************************************************************************
 	 * DO NOT MODIFY THE DEFINITION OF THIS CLASS
 	 ****************************************************************************************************************************************/
-	class ValidationException extends Exception implements Aggregate0<Exception> {
+	class ValidationException extends Exception implements Aggregate<Exception> {
 		private static final long serialVersionUID = 11111111;
 		private List<Exception> exceptionList;
 
@@ -62,7 +62,7 @@ class Student0 {
 		}
 	}
 
-	Student0(String fName, String lName, double cgpa) throws ValidationException {
+	Student(String fName, String lName, double cgpa) throws ValidationException {
 		ValidationException exp = new ValidationException("");
 
 		/*********************************************
@@ -156,9 +156,9 @@ class Student0 {
 }
 
 public class MasterQP2Solution {
-	static HashMap<String, Student0> populateMap() {
+	static HashMap<String, Student> populateMap() {
 		Scanner in = null;
-		HashMap<String, Student0> hm = null;
+		HashMap<String, Student> hm = null;
 
 		/*********************************************
 		 * WRITE CODE BELOW THIS COMMENTED PORTION
@@ -194,10 +194,10 @@ public class MasterQP2Solution {
 
 		try {
 
-			hm = new HashMap<String, Student0>();
+			hm = new HashMap<String, Student>();
 			String fName, lName, dept, st[];
 			double cgpa;
-			Student0 s = null;
+			Student s = null;
 			int year;
 
 			in = new Scanner(new FileInputStream("OnlineTestQP2.txt"));
@@ -216,8 +216,8 @@ public class MasterQP2Solution {
 				dept = st[2];
 				cgpa = Double.parseDouble(st[3]);
 				try {
-					s = new Student0(fName, lName, cgpa);
-				} catch (Student0.ValidationException ce) {
+					s = new Student(fName, lName, cgpa);
+				} catch (Student.ValidationException ce) {
 					System.out.print("Validation fails for Record no " + (i + 1) + ": ");
 					ce.get().forEach((ex) -> System.out.print(ex.getMessage() + "; "));
 					System.out.println();
@@ -232,8 +232,8 @@ public class MasterQP2Solution {
 		return hm;
 	}
 
-	static List<Student0> sortByDept(Map<String, Student0> hm, String search_dept) {
-		List<Student0> list = new ArrayList<Student0>();
+	static List<Student> sortByDept(Map<String, Student> hm, String search_dept) {
+		List<Student> list = new ArrayList<Student>();
 
 		/*********************************************
 		 * WRITE CODE BELOW THIS COMMENTED PORTION
@@ -251,11 +251,11 @@ public class MasterQP2Solution {
 		 * [BINARY MARKING: 4 MARKS]
 		 *********************************************************************************************************************************/
 
-		for (Map.Entry<String, Student0> e : hm.entrySet())
+		for (Map.Entry<String, Student> e : hm.entrySet())
 			if (e.getKey().contains(search_dept))
 				list.add(e.getValue());
 
-		Comparator<Student0> custom = (Student0 o1, Student0 o2) -> {
+		Comparator<Student> custom = (Student o1, Student o2) -> {
 			int i = Double.compare(o2.cgpa, o1.cgpa);
 			if (i != 0)
 				return i;
@@ -266,7 +266,7 @@ public class MasterQP2Solution {
 		return list;
 	}
 
-	static void writeRecords(List<Student0> sortedList,String filename) {
+	static void writeRecords(List<Student> sortedList,String filename) {
 
 		/*********************************************
 		 * WRITE CODE BELOW THIS COMMENTED PORTION
@@ -278,7 +278,7 @@ public class MasterQP2Solution {
 		 *********************************************************************************************************************************/
 		try {
 			PrintWriter fos = new PrintWriter(new FileOutputStream(filename));
-			for (Student0 s : sortedList)
+			for (Student s : sortedList)
 				fos.println(s);
 			fos.close();
 		} catch (Exception ex) {
@@ -291,8 +291,8 @@ public class MasterQP2Solution {
 		 * The Map stores all the valid records from the input file using populateMap().
 		 **********************************************************************************/
 
-		Map<String, Student0> hm = populateMap();
-		List<Student0> sortedList;
+		Map<String, Student> hm = populateMap();
+		List<Student> sortedList;
 
 		Scanner in = new Scanner(System.in);
 		String search_dept;
