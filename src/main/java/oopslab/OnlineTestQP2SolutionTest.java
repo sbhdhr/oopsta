@@ -67,84 +67,89 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(1)
 	public void testSetName() {
-
-		System.out.println("-------------------------------------");
-		System.out.println("OOPS LAB Q2 Eval Report : " + studID);
-		System.out.println("-------------------------------------");
-		System.out.println("NOTE. Please change the main classname to one mentioned in Student's file.");
-		System.out.println(
-				"NOTE. Please change the StudentClass and AggregateClasses according to that of submitted file.");
-		System.out.println("NOTE. Please change the id name for the submission being evaluated.");
-		System.out.println("NOTE. Import proper ValidExceptionClass.");
-
-		System.out.println("\n\n-------------------------------------");
-		System.out.println("Test 1:");
-		System.out.println("-------------------------------------");
-
-		String message1 = "First or Last Name must contain characters only";
-		String message2 = "First or Last Name should start with a capital letter";
-
-		System.out.println("Case1: ja1, Kumar, 1");
-		System.out.println("-----------------");
 		try {
-			Student s = new Student("ja1", "Kumar", 1);
-			fail("Case1");
-			System.out.println("Failed: No exception thrown.");
-		} catch (ValidationException e) {
-			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
-			System.out.println(out);
-			assertEquals(message1, out);
-			System.out.println("Pass");
-		}
+			System.out.println("-------------------------------------");
+			System.out.println("OOPS LAB Q2 Eval Report : " + studID);
+			System.out.println("-------------------------------------");
+			System.out.println("NOTE. Please change the main classname to one mentioned in Student's file.");
+			System.out.println(
+					"NOTE. Please change the StudentClass and AggregateClasses according to that of submitted file.");
+			System.out.println("NOTE. Please change the id name for the submission being evaluated.");
+			System.out.println("NOTE. Import proper ValidExceptionClass.");
 
-		System.out.println("Case2: Jay, Ku34r, 1");
-		System.out.println("-----------------");
-		try {
-			Student s = new Student("Jay", "Ku34r", 1);
-			fail("Case2");
-			System.out.println("Failed: No exception thrown.");
-		} catch (ValidationException e) {
-			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
-			System.out.println(out);
-			assertEquals(message1, out);
-			System.out.println("Pass");
-		}
+			System.out.println("\n\n-------------------------------------");
+			System.out.println("Test 1:");
+			System.out.println("-------------------------------------");
 
-		System.out.println("Case3: jay, Kumar, 1");
-		System.out.println("-----------------");
-		try {
-			Student s = new Student("jay", "Kumar", 1);
-			fail("Case3");
-			System.out.println("Failed: No exception thrown.");
-		} catch (ValidationException e) {
-			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
-			System.out.println(out);
-			assertEquals(message2, out);
-			System.out.println("Pass");
-		}
+			String message1 = "First or Last Name must contain characters only";
+			String message2 = "First or Last Name should start with a capital letter";
 
-		System.out.println("Case4: Jay, kumar, 1");
-		System.out.println("-----------------");
-		try {
-			Student s = new Student("Jay", "kumar", 1);
-			fail("Case4");
-			System.out.println("Failed: No exception thrown.");
-		} catch (ValidationException e) {
-			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
-			System.out.println(out);
-			assertEquals(message2, out);
-			System.out.println("Pass");
-		}
+			System.out.println("Case1: ja1, Kumar, 1");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("ja1", "Kumar", 1);
+				fail("Case1");
+				System.out.println("Failed: No exception thrown.");
+			} catch (ValidationException e) {
+				String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
+				System.out.println(out);
+				assertEquals(message1, out);
+				System.out.println("Pass");
+			}
 
-		// valid case
-		System.out.println("Case5: Jay, Kumar, 1");
-		System.out.println("-----------------");
-		try {
-			Student s = new Student("Jay", "Kumar", 1);
-			System.out.println("Pass");
-		} catch (ValidationException e) {
-			fail("Exception thrown for valid case.");
-			System.out.println("Fail. Exception thrown for valid case.");
+			System.out.println("Case2: Jay, Ku34r, 1");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("Jay", "Ku34r", 1);
+				fail("Case2");
+				System.out.println("Failed: No exception thrown.");
+			} catch (ValidationException e) {
+				String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
+				System.out.println(out);
+				assertEquals(message1, out);
+				System.out.println("Pass");
+			}
+
+			System.out.println("Case3: jay, Kumar, 1");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("jay", "Kumar", 1);
+				fail("Case3");
+				System.out.println("Failed: No exception thrown.");
+			} catch (ValidationException e) {
+				String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
+				System.out.println(out);
+				assertEquals(message2, out);
+				System.out.println("Pass");
+			}
+
+			System.out.println("Case4: Jay, kumar, 1");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("Jay", "kumar", 1);
+				fail("Case4");
+				System.out.println("Failed: No exception thrown.");
+			} catch (ValidationException e) {
+				String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
+				System.out.println(out);
+				assertEquals(message2, out);
+				System.out.println("Pass");
+			}
+
+			// valid case
+			System.out.println("Case5: Jay, Kumar, 1");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("Jay", "Kumar", 1);
+				System.out.println("Pass");
+			} catch (ValidationException e) {
+				fail("Exception thrown for valid case.");
+				System.out.println("Fail. Exception thrown for valid case.");
+			}
+		} catch (AssertionError e) {
+			System.out.println("Failed:  " + e.getMessage());
+
+			throw e;
 		}
 
 	}
@@ -158,46 +163,52 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(2)
 	public void testSetCGPA() {
-		System.out.println("\n\n\n-------------------------------------");
-		System.out.println("Test 2:");
-		System.out.println("-------------------------------------");
-
-		String message = "CGPA not in range";
-
-		System.out.println("Higher: 12");
-		System.out.println("-----------------");
 		try {
-			Student s = new Student("Jay", "Kumar", 12);
-			fail("Exception not thrown for value higher than 10");
-			System.out.println("Failed: No exception thrown.");
-		} catch (ValidationException e) {
-			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
-			System.out.println(out);
-			assertEquals(message, out);
-			System.out.println("Pass");
-		}
+			System.out.println("\n\n\n-------------------------------------");
+			System.out.println("Test 2:");
+			System.out.println("-------------------------------------");
 
-		System.out.println("\nLower: -1");
-		System.out.println("-----------------");
-		try {
-			Student s = new Student("Jay", "Kumar", -1);
-			fail("Exception not thrown for value lesser than 0");
-			System.out.println("Failed: No exception thrown.");
-		} catch (ValidationException e) {
-			String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
-			System.out.println(out);
-			assertEquals(message, out);
-			System.out.println("Pass");
-		}
+			String message = "CGPA not in range";
 
-		System.out.println("\nValid: 5");
-		System.out.println("-----------------");
-		try {
-			Student s = new Student("Jay", "Kumar", 5);
-			System.out.println("Pass");
-		} catch (ValidationException e) {
-			fail("Exception thrown for valid case.");
-			System.out.println("Fail. Exception thrown for valid case.");
+			System.out.println("Higher: 12");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("Jay", "Kumar", 12);
+				fail("Exception not thrown for value higher than 10");
+				System.out.println("Failed: No exception thrown.");
+			} catch (ValidationException e) {
+				String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
+				System.out.println(out);
+				assertEquals(message, out);
+				System.out.println("Pass");
+			}
+
+			System.out.println("\nLower: -1");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("Jay", "Kumar", -1);
+				fail("Exception not thrown for value lesser than 0");
+				System.out.println("Failed: No exception thrown.");
+			} catch (ValidationException e) {
+				String out = new ArrayList<Exception>(e.get()).get(0).getMessage();
+				System.out.println(out);
+				assertEquals(message, out);
+				System.out.println("Pass");
+			}
+
+			System.out.println("\nValid: 5");
+			System.out.println("-----------------");
+			try {
+				Student s = new Student("Jay", "Kumar", 5);
+				System.out.println("Pass");
+			} catch (ValidationException e) {
+				fail("Exception thrown for valid case.");
+				System.out.println("Fail. Exception thrown for valid case.");
+			}
+		} catch (AssertionError e) {
+			System.out.println("Failed:  " + e.getMessage());
+
+			throw e;
 		}
 	}
 
@@ -209,24 +220,30 @@ public class OnlineTestQP2SolutionTest {
 	@Test
 	@Order(3)
 	public void testHashCode() {
-		System.out.println("\n\n\n-------------------------------------");
-		System.out.println("Test 3:");
-		System.out.println("-------------------------------------");
-		System.out.println("Note: Check code manually.");
-
 		try {
+			System.out.println("\n\n\n-------------------------------------");
+			System.out.println("Test 3:");
+			System.out.println("-------------------------------------");
+			System.out.println("Note: Check code manually.");
 
-			Student s = new Student("Jay", "Kumar", 5);
-			if (s.idNo >= 1 && s.idNo <= 1000) {
-				System.out.println("Pass");
-			} else {
-				System.out.println("Fail. Invalid range for hashcode.");
-				fail("Fail. Invalid range for hashcode.");
+			try {
+
+				Student s = new Student("Jay", "Kumar", 5);
+				if (s.idNo >= 1 && s.idNo <= 1000) {
+					System.out.println("Pass");
+				} else {
+					System.out.println("Fail. Invalid range for hashcode.");
+					fail("Fail. Invalid range for hashcode.");
+				}
+
+			} catch (ValidationException e) {
+				fail("Exception thrown for valid case.");
+				System.out.println("Fail. Exception thrown for valid case.");
 			}
+		} catch (AssertionError e) {
+			System.out.println("Failed:  " + e.getMessage());
 
-		} catch (ValidationException e) {
-			fail("Exception thrown for valid case.");
-			System.out.println("Fail. Exception thrown for valid case.");
+			throw e;
 		}
 	}
 
