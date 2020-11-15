@@ -1,0 +1,182 @@
+-------------------------------------
+OOPS LAB Q2 Eval Report : 2019H1030023P
+-------------------------------------
+NOTE. Please change the main classname to one mentioned in student's file.
+NOTE. Please change the Student and Aggregate classes according to student submitted file.
+NOTE. Please change the id name for the student whose submission is being evaluated.
+
+
+-------------------------------------
+Test 1:
+-------------------------------------
+Case1: ja1, Kumar, 1
+-----------------
+First or Last Name must contain characters only
+Pass
+Case2: Jay, Ku34r, 1
+-----------------
+First or Last Name must contain characters only
+Pass
+Case3: jay, Kumar, 1
+-----------------
+First or Last Name should start with a capital letter
+Pass
+Case4: Jay, kumar, 1
+-----------------
+First or Last Name should start with a capital letter
+Pass
+Case5: Jay, Kumar, 1
+-----------------
+Pass
+
+
+
+-------------------------------------
+Test 2:
+-------------------------------------
+Higher: 12
+-----------------
+CGPA not in range
+Pass
+
+Lower: -1
+-----------------
+CGPA not in range
+Pass
+
+Valid: 5
+-----------------
+Pass
+
+
+
+-------------------------------------
+Test 3:
+-------------------------------------
+Note: Check code manually.
+Pass
+
+
+
+-------------------------------------
+Test 4:
+-------------------------------------
+Case1: Invalid
+-----------------
+Pass
+Case2: Valid
+-----------------
+Pass
+
+
+
+-------------------------------------
+Test 5:
+-------------------------------------
+NOTE. Manual check: NOT ALLOWED TO USE THE STRING TOKENIZER.
+NOTE. Manual check: Use lambda expression to print the array list of exceptions.
+NOTE. Check assert failures.
+Expected Output: 
+-----------------
+Validation fails for Record no 1: First or Last Name should start with a capital letter; CGPA not in range; 
+Validation fails for Record no 4: First or Last Name should start with a capital letter; 
+
+Actual Output: 
+---------------
+Validation fails for Record no 1: First or Last Name should start with a capital letter; CGPA not in range; 
+Validation fails for Record no 4: First or Last Name should start with a capital letter; 
+
+
+
+
+-------------------------------------
+Test 6:
+-------------------------------------
+NOTE. Manual check: lambda expression for the Comparator interface.
+NOTE. Manual check: Use lambda expression to print the array list of exceptions.
+Dept: CSE
+---------------------------------
+Expected: 
+[966 Ankit Agarwal 7.6, 433 Kushi Gupta 7.6, 985 Ankit Agarwal 6.5]
+Actual: 
+[966 Ankit Agarwal 7.6, 433 Kushi Gupta 7.6, 985 Ankit Agarwal 6.5]
+
+Dept: EEE
+---------------------------------
+Expected: 
+[]
+Actual: 
+[]
+
+Dept: Mech
+---------------------------------
+Expected: 
+[777 Jay Kumar 9.0]
+Actual: 
+[777 Jay Kumar 9.0]
+
+
+
+
+-------------------------------------
+Test 7:
+-------------------------------------
+NOTE. Manual check: Use lambda expression to print the array list of exceptions.
+Dept: CSE
+---------------------------------
+Expected: 
+17 Ankit Agarwal 7.6
+371 Kushi Gupta 7.6
+997 Ankit Agarwal 6.5
+
+Actual: 
+20 Ankit Agarwal 7.6
+396 Kushi Gupta 7.6
+985 Ankit Agarwal 6.5
+
+
+Dept: EEE
+---------------------------------
+Expected: 
+
+Actual: 
+
+
+Dept: Mech
+---------------------------------
+Expected: 
+816 Jay Kumar 9.0
+
+Actual: 
+825 Jay Kumar 9.0
+
+
+
+
+
+-------------------------------------
+Test 8:
+-------------------------------------
+NOTE. Manual check: Print the elements of the sorted list using a lambda expression.
+
+Dept: CSE
+---------------------------------
+Validation fails for Record no 1: First or Last Name should start with a capital letter; CGPA not in range; 
+Validation fails for Record no 4: First or Last Name should start with a capital letter; 
+Enter the dept name [CSE or EEE or Mech]
+968 Ankit Agarwal 7.6
+346 Kushi Gupta 7.6
+950 Ankit Agarwal 6.5
+
+Dept: EEE
+---------------------------------
+Validation fails for Record no 1: First or Last Name should start with a capital letter; CGPA not in range; 
+Validation fails for Record no 4: First or Last Name should start with a capital letter; 
+Enter the dept name [CSE or EEE or Mech]
+
+Dept: Mech
+---------------------------------
+Validation fails for Record no 1: First or Last Name should start with a capital letter; CGPA not in range; 
+Validation fails for Record no 4: First or Last Name should start with a capital letter; 
+Enter the dept name [CSE or EEE or Mech]
+840 Jay Kumar 9.0
