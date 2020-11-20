@@ -48,7 +48,9 @@ public class SaveMasterOutputs {
 			properties.load(new FileInputStream("correct\\P5_map.properties"));
 			for (String key : properties.stringPropertyNames()) {
 				String[] arr=properties.get(key).toString().split(";");
-				Student s = new Student(arr[1], arr[2],Double.parseDouble(arr[3]));
+				//System.out.println("String arr: "+Arrays.toString(arr));
+				//System.out.println("string="+arr[3].trim()+"->"+Double.parseDouble(arr[3].trim()));
+				Student s = new Student(arr[1], arr[2],Double.parseDouble(arr[3].trim()));
 				hmMaster.put(key, s);
 				//System.out.println(key+"="+s);
 			}
@@ -66,6 +68,11 @@ public class SaveMasterOutputs {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+//		System.out.println("map::");
+//		for (Map.Entry<String, Student> e : hmMaster.entrySet()) {
+//			System.out.println(e.getKey()+"="+e.getValue());
+//		}
 
 		return hmMaster;
 	}

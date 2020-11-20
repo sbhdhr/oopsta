@@ -40,7 +40,8 @@ public class OnlineTestQP2SolutionTest {
 	private final PrintStream originalErr = System.err;
 	private final InputStream originalIn = System.in;
 
-	private String studID = "QP2_2019A7PS0052P";
+	private String studID = "QP2_2019A7PS0051P";
+	private String studOutfile = "QP2_2019A7PS0051P.txt";
 	private PrintStream fileOut;
 
 	@BeforeAll
@@ -312,7 +313,7 @@ public class OnlineTestQP2SolutionTest {
 			System.setOut(new PrintStream(outContent));
 			System.setErr(new PrintStream(errContent));
 			// Change here
-			Map<String, Student> hm = QP2_2019A7PS0052P.populateMap();
+			Map<String, Student> hm = QP2_2019A7PS0051P.populateMap();
 
 			String out = outContent.toString();
 
@@ -351,11 +352,14 @@ public class OnlineTestQP2SolutionTest {
 	}
 
 	List<Student> sortByDept(Map<String, Student> hm, String search_dept) {
+
 		List<Student> list = new ArrayList<Student>();
 
 		for (Map.Entry<String, Student> e : hm.entrySet())
-			if (e.getKey().contains(search_dept))
+			if (e.getKey().contains(search_dept)) {
 				list.add(e.getValue());
+				// System.out.println(e.getValue());
+			}
 
 		Comparator<Student> custom = (Student o1, Student o2) -> {
 			int i = Double.compare(o2.cgpa, o1.cgpa);
@@ -365,6 +369,7 @@ public class OnlineTestQP2SolutionTest {
 		};
 
 		Collections.sort(list, custom);
+
 		return list;
 	}
 
@@ -395,7 +400,7 @@ public class OnlineTestQP2SolutionTest {
 				List<Student> sortedListMaster = sortByDept(hmMaster, s);
 
 				// Change here
-				List<Student> sortedList = QP2_2019A7PS0052P.sortByDept(hmMaster, s);
+				List<Student> sortedList = QP2_2019A7PS0051P.sortByDept(hmMaster, s);
 				// pass master map as input
 
 				System.out.println("Dept: " + s);
@@ -452,15 +457,16 @@ public class OnlineTestQP2SolutionTest {
 					System.out.println("Dept: " + s);
 					System.out.println("---------------------------------");
 
-					String outMaster = new String(Files.readAllBytes(Paths.get("MasterOutput" + s + ".txt")));
+					String outMaster = new String(Files.readAllBytes(Paths.get("correct\\MasterOutput" + s + ".txt")));
 
 					System.out.println("Expected: ");
 					System.out.println(outMaster);
 
 					List<Student> sortedList = sortByDept(hmMaster, s);
 					//// Change here
-					QP2_2019A7PS0052P.writeRecords(sortedList);
-					String out = new String(Files.readAllBytes(Paths.get("QP2_2019A7PS0052P.txt")));
+
+					QP2_2019A7PS0051P.writeRecords(sortedList);
+					String out = new String(Files.readAllBytes(Paths.get(studOutfile)));
 
 					System.out.println("Actual: ");
 					System.out.println(out);
@@ -496,7 +502,7 @@ public class OnlineTestQP2SolutionTest {
 				InputStream inStream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
 				System.setIn(inStream);
 				// change here
-				QP2_2019A7PS0052P.main(null);
+				QP2_2019A7PS0051P.main(null);
 				System.setIn(originalIn);
 			}
 
